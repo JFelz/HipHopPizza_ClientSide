@@ -50,21 +50,8 @@ const updateUser = (uid, payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getProducts = () => new Promise((resolve, reject) => {
-  fetch('https://localhost:7143/products', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => resolve(data))
-    .catch(reject);
-});
-
 export {
   updateUser,
-  getProducts,
   getSingleUser,
   getAllUser,
 };
