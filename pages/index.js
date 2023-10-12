@@ -1,26 +1,50 @@
-import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { getSingleUser } from '../api/userData';
+import { getAllProducts } from '../api/productData';
 import { useAuth } from '../utils/context/authContext';
+import ProductCard from '../components/ProductCard';
+
+// import { getSubscribedPosts } from '../api/categoryData';
+// import PostCard from '../components/PostCard';
 
 function Home() {
+  const [checkedIn, setCheckedIn] = useState();
+  const [products, setProducts] = useState();
   const { user } = useAuth();
+  const router = useRouter();
+
+  const getProducts = () => {
+    getAllProducts().then(setProducts);
+    console.log('got products:', products?.map((prod) => prod.title));
+  };
+
+  const checkingUser = () => {
+    getSingleUser(user.uid).then(setCheckedIn);
+  };
+
+  useEffect(() => {
+    checkingUser();
+    getProducts();
+  }, []);
+
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
-    </div>
+    <>
+      <h1>Menu</h1>
+      <div
+        className="menuSectionDiv"
+      >
+        {!checkedIn ? (
+          () => { router.push('/SignUp'); }
+        ) : (
+          <>
+            <div className="ProductCard">
+              {products?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
+            </div>
+          </>
+        ) }
+      </div>
+    </>
   );
 }
 

@@ -7,11 +7,10 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { checkUser } from '../auth';
+import { checkUser, registerUser } from '../auth';
 import { firebase } from '../client';
 
 const AuthContext = createContext();
-
 AuthContext.displayName = 'AuthContext'; // Context object accepts a displayName string property. React DevTools uses this string to determine what to display for the context. https://reactjs.org/docs/context.html#contextdisplayname
 
 const AuthProvider = (props) => {
@@ -41,7 +40,8 @@ const AuthProvider = (props) => {
           } else {
             userObj = { fbUser, uid: fbUser.uid, ...gamerInfo };
           }
-          setUser(userObj);
+          setUser(fbUser, userObj);
+          registerUser(user);
         });
       } else {
         setOAuthUser(false);
