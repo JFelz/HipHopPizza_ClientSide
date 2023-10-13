@@ -6,10 +6,10 @@ import Link from 'next/link';
 export default function ProductCard({ ProdArr }) {
   return (
     <>
-      <Link href={`/Manageproducts/${ProdArr.id}`} passHref>
+      <Link href={`/Products/${ProdArr.id}`} passHref>
         <Card style={{
-          height: '400px',
-          width: '250px',
+          height: '250px',
+          width: '150px',
           margin: '10px',
           cursor: 'pointer',
         }}
@@ -19,11 +19,11 @@ export default function ProductCard({ ProdArr }) {
             src={ProdArr.imageURL}
             alt="Image Failure"
             style={{
-              height: '200px',
+              height: '100px',
               objectFit: 'cover',
             }}
           />
-          <Card.Body style={{ marginTop: '5px' }}>
+          <Card.Body style={{ marginTop: '5px', maxHeight: '50px' }}>
             <Card.Title style={{
               minHeight: '15px',
               fontFamily: 'Poppins',
@@ -39,11 +39,10 @@ export default function ProductCard({ ProdArr }) {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              alignContent: 'center',
-              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <Card.Text style={{ marginLeft: '85px' }}>${ProdArr.price}</Card.Text>
+            <Card.Text style={{ marginLeft: '0px' }}>${ProdArr.price}</Card.Text>
             <Button variant="success"> Add To Cart </Button>
           </Card.Footer>
         </Card>

@@ -27,7 +27,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  width: 50%;
+  width: 45%;
   background-color: rgb(180, 107, 107);
 }
 
@@ -38,4 +38,9 @@ body {
   justify-content: flex-start;
   width: 100%;
   background-color: rgb(107, 163, 180);
+}
+
+.WelcomeMessage {
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
