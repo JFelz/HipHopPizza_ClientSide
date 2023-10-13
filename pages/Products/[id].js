@@ -15,13 +15,12 @@ export default function CurrentProductDetails() {
   const { id } = router.query;
 
   const getIndividualProduct = () => {
-    getSingleProduct(id).then((details) => {
-      if (details) {
-        setProductDetails(details);
-      }
-    });
-    console.log(productDetails);
+    getSingleProduct(id).then(setProductDetails);
+    // console.log('set');
   };
+
+  console.log(productDetails);
+  console.log(productDetails?.title);
 
   useEffect(() => {
     getIndividualProduct();
@@ -48,9 +47,7 @@ export default function CurrentProductDetails() {
           <Image
             width={700}
             height={700}
-            className="d-block w-100"
-            src={productDetails?.imageURL}
-            alt="First slide"
+            className={productDetails?.imageURL}
             style={{ objectFit: 'contain', backgroundColor: '#0D0D0D', borderRadius: '10px' }}
           />
           <Carousel.Caption>
