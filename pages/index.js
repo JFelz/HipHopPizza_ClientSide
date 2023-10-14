@@ -25,6 +25,9 @@ function Home() {
     getAllWings().then(setWingsProduct);
     getAllDrinks().then(setDrinksProduct);
     console.log('got products:', products?.map((prod) => prod.title));
+    console.log('got Pizza products:', pizzaProduct?.map((prod) => prod.title));
+    console.log('got wings products:', wingsProduct?.map((prod) => prod.title));
+    console.log('got drinks products:', drinksProduct?.map((prod) => prod.title));
   };
 
   const checkingUser = () => {

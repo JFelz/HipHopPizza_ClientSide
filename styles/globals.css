@@ -44,3 +44,8 @@ body {
   margin-top: 2em;
   margin-bottom: 2em;
 }
+
+.SplitScreenContainer {
+  display: flex;
+  margin-top: 2em;
+}
