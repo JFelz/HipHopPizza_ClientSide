@@ -7,6 +7,7 @@ import {
 } from '../api/productData';
 import { useAuth } from '../utils/context/authContext';
 import ProductCard from '../components/ProductCard';
+import OrderForm from '../components/forms/OrderForm';
 // import { getSubscribedPosts } from '../api/categoryData';
 // import PostCard from '../components/PostCard';
 
@@ -56,24 +57,33 @@ function Home() {
         </>
       )}
       <h1>Pizza</h1>
-      <div className="menuSectionDiv">
-        <div className="ProductCard">
-          {pizzaProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
-        </div>
-      </div>
-      <br />
-      <h1>Wings</h1>
-      <div className="wingsSectionDiv">
-        <div className="ProductCard">
-          {wingsProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
-        </div>
-      </div>
-      <br />
-      <h1>Drinks</h1>
-      <div className="drinksSectionDiv">
-        <div className="ProductCard">
-          {drinksProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
-        </div>
+      <div className="dualWindow">
+        <section className="Products">
+          <div className="menuSectionDiv">
+            <div className="ProductCard">
+              {pizzaProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
+            </div>
+          </div>
+          <br />
+          <h1>Wings</h1>
+          <div className="wingsSectionDiv">
+            <div className="ProductCard">
+              {wingsProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
+            </div>
+          </div>
+          <br />
+          <h1>Drinks</h1>
+          <div className="drinksSectionDiv">
+            <div className="ProductCard">
+              {drinksProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
+            </div>
+          </div>
+        </section>
+        <section className="Orders">
+          <div className="orderSectionBlock">
+            <OrderForm />
+          </div>
+        </section>
       </div>
     </>
   );

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../api/productData';
+import { getAllOrders } from '../api/orderData';
+import OrderCard from '../components/OrderCard';
 
-export default function DeleteMe() {
-  const [test, setTest] = useState([]);
+export default function Orders() {
+  const [order, setOrder] = useState([]);
 
-  const newTest = () => {
-    getAllProducts().then(setTest);
-    console.log('Tab2 Products:', test);
+  const getOrders = () => {
+    getAllOrders().then(setOrder);
+    console.log('Tab2 Products:', order);
   };
 
   useEffect(() => {
-    newTest();
+    getOrders();
   }, []);
+
   return (
     <>
-      <div>
-        <h1>{test?.map((prod) => prod.title)}</h1>
+      <div className="OrdersMain">
+        <h1 style={{ marginBottom: '.5em' }}>Orders</h1>
+        {order?.map((o) => <OrderCard key={o.id} orderObj={o} />)}
       </div>
     </>
   );

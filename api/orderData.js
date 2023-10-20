@@ -1,5 +1,5 @@
-const getAllProducts = () => new Promise((resolve, reject) => {
-  fetch('https://localhost:7143/products', {
+const getAllOrders = () => new Promise((resolve, reject) => {
+  fetch('https://localhost:7143/orders/all', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -10,8 +10,8 @@ const getAllProducts = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getSingleProduct = (id) => new Promise((resolve, reject) => {
-  fetch(`https://localhost:7143/products/${id}`, {
+const getSingleOrder = (id) => new Promise((resolve, reject) => {
+  fetch(`https://localhost:7143/orders/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -22,8 +22,8 @@ const getSingleProduct = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getAllPizza = () => new Promise((resolve, reject) => {
-  fetch('https://localhost:7143/products/pizza', {
+const getOrderProductlist = (id) => new Promise((resolve, reject) => {
+  fetch(`https://localhost:7143/orders/${id}/products`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -34,32 +34,8 @@ const getAllPizza = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getAllWings = () => new Promise((resolve, reject) => {
-  fetch('https://localhost:7143/products/wings', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
-});
-
-const getAllDrinks = () => new Promise((resolve, reject) => {
-  fetch('https://localhost:7143/products/drinks', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
-});
-
-const createProduct = (payload) => new Promise((resolve, reject) => {
-  fetch('https://localhost:7143/products/new', {
+const createOrder = (payload) => new Promise((resolve, reject) => {
+  fetch('https://localhost:7143/orders/new', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -71,8 +47,8 @@ const createProduct = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateProduct = (id, payload) => new Promise((resolve, reject) => {
-  fetch(`https://localhost:7143/products/update/${id}`, {
+const updateOrder = (id, payload) => new Promise((resolve, reject) => {
+  fetch(`https://localhost:7143/orders/${id}/edit`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -84,8 +60,33 @@ const updateProduct = (id, payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteProduct = (id) => new Promise((resolve, reject) => {
-  fetch(`https://localhost:7143/products/delete/${id}`, {
+const deleteOrder = (id) => new Promise((resolve, reject) => {
+  fetch(`https://localhost:7143/orders/${id}/delete`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+const addProductToOrder = (id, payload) => new Promise((resolve, reject) => {
+  fetch(`https://localhost:7143/orders/${id}/list`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+const deleteProductInOrder = (orderId, productId) => new Promise((resolve, reject) => {
+  fetch(`https://localhost:7143/orders/${orderId}/list/${productId}/remove`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -97,13 +98,12 @@ const deleteProduct = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getAllProducts,
-  getAllPizza,
-  getAllDrinks,
-  getAllWings,
-  getSingleProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-
+  getAllOrders,
+  getSingleOrder,
+  getOrderProductlist,
+  createOrder,
+  updateOrder,
+  deleteOrder,
+  addProductToOrder,
+  deleteProductInOrder,
 };
