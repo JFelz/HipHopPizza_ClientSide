@@ -19,7 +19,7 @@ const initialState = {
   review: false,
 };
 
-export default function OrderForm({ productList }) {
+export default function OrderForm({ productList, DeletePL }) {
   const [userData, setUserData] = useState();
   const [OrderFormData, setOrderFormData] = useState(initialState);
   const [prodList, setProdList] = useState();
@@ -36,7 +36,23 @@ export default function OrderForm({ productList }) {
     console.log('OrderForm ProductList Prop:', productList);
   };
 
-  console.log(prodList);
+  const deleteProd = (ListArr) => {
+    setProdList((prevProdList) => prevProdList.filter((p) => p.id !== ListArr.id));
+    DeletePL(ListArr);
+    // productList callback - suppose to directly affect the state its being passed into this form
+    productList.slice();
+  };
+
+  console.log('current prodList:', prodList);
+  // const deleteCallback = (childData) => {
+  //   // Set each Product Obj into a State array
+  //   // const index = productList?.indexOf(childData);
+  //   // if (index > -1) {
+  //   //   productList.splice(index, 1);
+  //   //   deleteCB(childData);
+  //   // }
+  //   // console.log('deleteCallback');
+  // }
 
   const getCashier = () => {
     getSingleUser(user.uid).then(setUserData);
@@ -61,6 +77,7 @@ export default function OrderForm({ productList }) {
   useEffect(() => {
     getCashier();
     addProductListObjects();
+    // deleteCallback();
   }, [productList]);
 
   return (
@@ -131,7 +148,7 @@ export default function OrderForm({ productList }) {
           </div>
         </div>
         <div>
-          {prodList?.map((obj) => <ProductListCards key={obj.firebaseKey} ListArr={obj} />)}
+          {productList?.map((obj) => <ProductListCards key={obj.id} ListArr={obj} DelCallBack={deleteProd} />)}
         </div>
         <Form.Control
           type="name"
@@ -243,8 +260,18 @@ OrderForm.propTypes = {
       category: PropTypes.string,
     }),
   ),
+  ListArr: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    imageURL: PropTypes.string,
+    price: PropTypes.number,
+    category: PropTypes.string,
+  }).isRequired,
+  DeletePL: PropTypes.func,
 };
 
 OrderForm.defaultProps = {
   productList: () => [],
+  DeletePL: () => {},
 };

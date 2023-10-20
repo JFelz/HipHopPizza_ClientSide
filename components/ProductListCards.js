@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 
-export default function ProductListCards({ ListArr }) {
+export default function ProductListCards({ ListArr, DelCallBack }) {
   return (
     <>
       <Card style={{
@@ -69,6 +69,9 @@ export default function ProductListCards({ ListArr }) {
             <Card.Text style={{ width: '50px', color: '#6FBD54' }}>{ListArr?.price}</Card.Text>
           </Card.Body>
         </Card.Body>
+        <Button variant="danger" onClick={() => { DelCallBack(ListArr); }}>
+          Delete
+        </Button>
       </Card>
     </>
   );
@@ -83,4 +86,9 @@ ProductListCards.propTypes = {
     price: PropTypes.number,
     category: PropTypes.string,
   }).isRequired,
+  DelCallBack: PropTypes.func,
+};
+
+ProductListCards.defaultProps = {
+  DelCallBack: () => {},
 };

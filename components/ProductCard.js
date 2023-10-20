@@ -7,12 +7,8 @@ export default function ProductCard({ ProdArr, parentCallback }) {
   const [bool, setBool] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
-
+    // Returns the current Product Obj to it's Parent Component.
     parentCallback(ProdArr);
-
-    // 1. Bring in the Current Order Obj
-
-    // 2. Add Current Product Obj (payload) to its ProductList
 
     // 4. Show the productList in the OrderForm file
 
