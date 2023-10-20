@@ -4,19 +4,18 @@ import {
   Carousel,
   Image,
   // Footer,
-  // Button,
+  Button,
 } from 'react-bootstrap';
 import { getSingleProduct } from '../../api/productData';
 
 export default function CurrentProductDetails() {
   const [productDetails, setProductDetails] = useState();
-  // const [bool, setBool] = useState(false);
+  const [bool, setBool] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
   const getIndividualProduct = () => {
     getSingleProduct(id).then(setProductDetails);
-    // console.log('set');
   };
 
   console.log(productDetails);
@@ -26,37 +25,24 @@ export default function CurrentProductDetails() {
     getIndividualProduct();
   }, []);
 
-  // const handleClick = (e) => {
-  //   e.preventDefault();
+  const handleClick = (e) => {
+    e.preventDefault();
 
-  //   setBool(true);
+    setBool(true);
 
-  //   // const payload = {
-  //   //   ...productDetails,
-  //   //   cartUser: user.uid,
-  //   // };
-  //   // createMyCartOrders(payload).then(({ name }) => {
-  //   //   const patchPayload = { firebaseKey: name };
-  //   //   updateMyCartOrders(patchPayload);
-  // };
+    // const payload = {
+    //   ...productDetails,
+    //   cartUser: user.uid,
+    // };
+    // createMyCartOrders(payload).then(({ name }) => {
+    //   const patchPayload = { firebaseKey: name };
+    //   updateMyCartOrders(patchPayload);
+  };
 
   return (
     <>
       <Carousel>
         <Carousel.Item>
-          <Image
-            width={700}
-            height={700}
-            className={productDetails?.imageURL}
-            style={{ objectFit: 'contain', backgroundColor: '#0D0D0D', borderRadius: '10px' }}
-          />
-          <Carousel.Caption>
-            <h3>{productDetails?.title}</h3>
-            <p>{productDetails?.category}</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-      {/* <Carousel.Item>
           <Image
             width={700}
             height={700}
@@ -82,22 +68,11 @@ export default function CurrentProductDetails() {
           />
         </Carousel.Item>
       </Carousel>
-      <div className="ViewPage">
-        <div style={{ width: '50%', backgroundColor: '' }} className="text-black ms-5 details">
-          <div style={{
-            display: 'flex',
-            color: '#7B7B7B',
-            width: '200px',
-            alignItems: 'center',
-            marginBottom: '15px',
-          }}
-          >
-            <Image src="/viewEye.png" style={{ height: '25px' }} />
-          </div>
-          <h3 style={{ marginBottom: '5px', color: 'white' }}><b>{productDetails?.title}</b></h3>
-          <div style={{ display: 'flex', color: '#35CEB3' }}>
-            <p style={{ color: '#7B7B7B', marginRight: '7px' }}> by </p>
-            <p>{productDetails?.title}</p>
+      <div className="SplitScreenContainer">
+        <div className="ViewPage">
+          <h3 style={{ marginTop: '2em', marginBottom: '5px', color: 'white' }}><b>{productDetails?.title}</b></h3>
+          <div style={{ display: 'flex', color: '#A75CD4' }}>
+            <p>HipHopPizzaNWangs</p>
           </div>
           <h5 style={{
             color: 'white',
@@ -106,10 +81,11 @@ export default function CurrentProductDetails() {
             fontFamily: 'Poppins',
           }}
           >
-            PRODUCT DETAILS
+            PRODUCT DESCRIPTION
           </h5>
           <p style={{ color: 'white', fontFamily: 'Poppins light' }}>{productDetails?.description}</p>
         </div>
+
         <div style={{
           width: '35%',
           height: '20%',
@@ -133,7 +109,7 @@ export default function CurrentProductDetails() {
             }}
             className="d-flex justify-content-between"
           >
-            <p>Standard License</p>
+            <p>Total Price:</p>
             <p>USD ${productDetails?.price}</p>
           </div>
           <div
@@ -146,7 +122,7 @@ export default function CurrentProductDetails() {
               fontSize: '20px',
             }}
           >
-            { bool === false
+            {bool === false
               ? (
                 <Button
                   type="button"
@@ -168,7 +144,6 @@ export default function CurrentProductDetails() {
           </div>
         </div>
       </div>
-      <Footer /> */}
     </>
   );
 }
