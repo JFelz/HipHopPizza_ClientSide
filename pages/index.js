@@ -38,7 +38,11 @@ function Home() {
     setProductList((prevState) => ([...prevState, childData]));
   };
 
-  console.log('callback:', productList);
+  const deleteProd = (deletedItemArr) => {
+    setProductList((prevProductList) => prevProductList.filter((p) => p.id !== deletedItemArr.id));
+  };
+
+  console.log('Home:', productList);
 
   const checkingUser = () => {
     getSingleUser(user.uid).then(setCheckedIn);
@@ -51,7 +55,7 @@ function Home() {
   useEffect(() => {
     checkingUser();
     getProducts();
-  }, []);
+  }, [productList]);
 
   return (
     <>
@@ -90,7 +94,7 @@ function Home() {
         </section>
         <section className="Orders">
           <div className="orderSectionBlock">
-            <OrderForm productList={productList} />
+            <OrderForm productList={productList} DeletePL={deleteProd} />
           </div>
         </section>
       </div>
