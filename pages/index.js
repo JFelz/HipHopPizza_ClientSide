@@ -6,8 +6,8 @@ import {
   getAllDrinks, getAllPizza, getAllProducts, getAllWings,
 } from '../api/productData';
 import { useAuth } from '../utils/context/authContext';
-import ProductCard from '../components/ProductCard';
 import OrderForm from '../components/forms/OrderForm';
+import ProductCard from '../components/ProductCard';
 // import { getSubscribedPosts } from '../api/categoryData';
 // import PostCard from '../components/PostCard';
 
@@ -17,6 +17,7 @@ function Home() {
   const [pizzaProduct, setPizzaProduct] = useState();
   const [wingsProduct, setWingsProduct] = useState();
   const [drinksProduct, setDrinksProduct] = useState();
+  const [productList, setProductList] = useState([]);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -30,6 +31,14 @@ function Home() {
     console.log('got wings products:', wingsProduct?.map((prod) => prod.title));
     console.log('got drinks products:', drinksProduct?.map((prod) => prod.title));
   };
+
+  // This function returns the Product Obj from the child component
+  const handleCallback = (childData) => {
+    // Set each Product Obj into a State array
+    setProductList((prevState) => ([...prevState, childData]));
+  };
+
+  console.log('callback:', productList);
 
   const checkingUser = () => {
     getSingleUser(user.uid).then(setCheckedIn);
@@ -61,27 +70,27 @@ function Home() {
         <section className="Products">
           <div className="menuSectionDiv">
             <div className="ProductCard">
-              {pizzaProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
+              {pizzaProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} parentCallback={handleCallback} />)}
             </div>
           </div>
           <br />
           <h1>Wings</h1>
           <div className="wingsSectionDiv">
             <div className="ProductCard">
-              {wingsProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
+              {wingsProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} parentCallback={handleCallback} />)}
             </div>
           </div>
           <br />
           <h1>Drinks</h1>
           <div className="drinksSectionDiv">
             <div className="ProductCard">
-              {drinksProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} />)}
+              {drinksProduct?.map((prod) => <ProductCard ProdArr={prod} key={prod.id} parentCallback={handleCallback} />)}
             </div>
           </div>
         </section>
         <section className="Orders">
           <div className="orderSectionBlock">
-            <OrderForm />
+            <OrderForm productList={productList} />
           </div>
         </section>
       </div>

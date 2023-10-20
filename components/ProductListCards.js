@@ -45,7 +45,7 @@ export default function ProductListCards({ ListArr }) {
               fontSize: '12px',
               width: '15em',
             }}
-          >{ListArr.title}
+          >{ListArr?.title}
           </Card.Title>
 
         </Card.Body>
@@ -66,7 +66,7 @@ export default function ProductListCards({ ListArr }) {
           }}
           >
             <Card.Text style={{ marginBottom: '5px', width: '50px', fontFamily: 'Poppins' }}><b>Price</b></Card.Text>
-            <Card.Text style={{ width: '50px', color: '#6FBD54' }}>{ListArr.price}</Card.Text>
+            <Card.Text style={{ width: '50px', color: '#6FBD54' }}>{ListArr?.price}</Card.Text>
           </Card.Body>
         </Card.Body>
       </Card>

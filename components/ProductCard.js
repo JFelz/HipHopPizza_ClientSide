@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
 
-export default function ProductCard({ ProdArr }) {
+export default function ProductCard({ ProdArr, parentCallback }) {
   const [bool, setBool] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
+
+    parentCallback(ProdArr);
+
+    // 1. Bring in the Current Order Obj
+
+    // 2. Add Current Product Obj (payload) to its ProductList
+
+    // 4. Show the productList in the OrderForm file
 
     setBool(true);
 
@@ -18,6 +26,7 @@ export default function ProductCard({ ProdArr }) {
     //   const patchPayload = { firebaseKey: name };
     //   updateMyCartOrders(patchPayload);
   };
+
   return (
     <>
       <Link href={`/Products/${ProdArr.id}`} passHref>
@@ -92,4 +101,9 @@ ProductCard.propTypes = {
     price: PropTypes.number,
     category: PropTypes.string,
   }).isRequired,
+  parentCallback: PropTypes.func,
+};
+
+ProductCard.defaultProps = {
+  parentCallback: () => {},
 };

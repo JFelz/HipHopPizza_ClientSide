@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
 import { getSingleUser } from '../../api/userData';
+import ProductListCards from '../ProductListCards';
 
 const initialState = {
   customerName: '',
@@ -18,9 +19,10 @@ const initialState = {
   review: false,
 };
 
-export default function OrderForm() {
+export default function OrderForm({ productList }) {
   const [userData, setUserData] = useState();
   const [OrderFormData, setOrderFormData] = useState(initialState);
+  const [prodList, setProdList] = useState();
   const [show, setShow] = useState(false);
   const { user } = useAuth();
 
@@ -28,6 +30,13 @@ export default function OrderForm() {
   const handleShow = () => {
     setShow(true);
   };
+
+  const addProductListObjects = () => {
+    setProdList(productList);
+    console.log('OrderForm ProductList Prop:', productList);
+  };
+
+  console.log(prodList);
 
   const getCashier = () => {
     getSingleUser(user.uid).then(setUserData);
@@ -51,7 +60,8 @@ export default function OrderForm() {
 
   useEffect(() => {
     getCashier();
-  }, []);
+    addProductListObjects();
+  }, [productList]);
 
   return (
     <>
@@ -121,7 +131,7 @@ export default function OrderForm() {
           </div>
         </div>
         <div>
-          {/* {cart?.map((obj) => <OrderSummCard key={obj.firebaseKey} orderCard={obj} />)} */}
+          {prodList?.map((obj) => <ProductListCards key={obj.firebaseKey} ListArr={obj} />)}
         </div>
         <Form.Control
           type="name"
@@ -223,4 +233,18 @@ OrderForm.propTypes = {
     orderStatus: PropTypes.bool,
     review: PropTypes.bool,
   }).isRequired,
+  productList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      imageURL: PropTypes.string,
+      price: PropTypes.number,
+      category: PropTypes.string,
+    }),
+  ),
+};
+
+OrderForm.defaultProps = {
+  productList: () => [],
 };
