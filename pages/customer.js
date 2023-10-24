@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {
   Button, Form, Image, Modal,
 } from 'react-bootstrap';
-import { useAuth } from '../../utils/context/authContext';
-import { getSingleUser } from '../../api/userData';
-import ProductListCards from '../ProductListCards';
-import { createOrder } from '../../api/orderData';
+import { useAuth } from '../utils/context/authContext';
+import { getSingleUser } from '../api/userData';
+import ProductListCards from '../components/ProductListCards';
+import { createOrder } from '../api/orderData';
 
 const initialState = {
   cashierId: null,
@@ -21,7 +21,7 @@ const initialState = {
   review: false,
 };
 
-export default function OrderForm({ productList, DeletePL }) {
+export default function CustomerInformation({ productList, DeletePL }) {
   const [userData, setUserData] = useState({});
   const [OrderFormData, setOrderFormData] = useState(initialState);
   const [prodList, setProdList] = useState();
@@ -139,6 +139,45 @@ export default function OrderForm({ productList, DeletePL }) {
       <div className="OrderStatus">
         <p style={{ paddingRight: '5px' }}>Order Status:</p> {OrderFormData?.orderStatus ? <p className="Positive"> Open </p> : <p className="Negative">Closed</p>}
       </div>
+      <section className="OrderFormSection">
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Customer Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter Email"
+              name="customerEmail"
+              value={OrderFormData?.customerEmail}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label>Customer Name</Form.Label>
+            <Form.Control
+              type="name"
+              placeholder="Enter Name"
+              name="customerName"
+              value={OrderFormData?.customerName}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+            <Form.Label>Customer Mobile Number</Form.Label>
+            <Form.Control
+              type="name"
+              placeholder="Enter Number"
+              name="customerPhoneNumber"
+              value={OrderFormData?.customerPhoneNumber}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+        </Form>
+      </section>
       <section className="OrderSection">
         <div className="OrderSubTitles">
           <p style={{ margin: '0px', paddingLeft: '25px' }}> ITEMS </p>
@@ -243,7 +282,7 @@ export default function OrderForm({ productList, DeletePL }) {
   );
 }
 
-OrderForm.propTypes = {
+CustomerInformation.propTypes = {
   orderObj: PropTypes.shape({
     id: PropTypes.number,
     cashierId: PropTypes.number,
@@ -278,7 +317,7 @@ OrderForm.propTypes = {
   DeletePL: PropTypes.func,
 };
 
-OrderForm.defaultProps = {
+CustomerInformation.defaultProps = {
   productList: () => [],
   DeletePL: () => {},
 };
