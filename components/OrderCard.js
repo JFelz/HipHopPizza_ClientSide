@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Button, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { getUserById } from '../api/userData';
 import { getOrderProductlist, deleteOrder } from '../api/orderData';
 import ProductListCards from './ProductListCards';
@@ -77,7 +78,7 @@ export default function OrderCard({ orderObj }) {
                 fontSize: '16px',
                 width: '15em',
               }}
-            > Customer: {orderObj.customerName}
+            > Customer: {orderObj?.customerName}
             </Card.Title>
             <Card.Subtitle style={{
               fontFamily: 'Poppins',
@@ -86,7 +87,7 @@ export default function OrderCard({ orderObj }) {
               fontSize: '13px',
               width: '14em',
             }}
-            > Cashier: {cashier.name}
+            > Cashier: {cashier?.name}
             </Card.Subtitle>
 
           </Card.Body>
@@ -108,7 +109,7 @@ export default function OrderCard({ orderObj }) {
             >
               <Card.Text style={{ marginBottom: '5px', width: '50px', fontFamily: 'Poppins' }}><b>Review</b></Card.Text>
               <Card.Text style={{ width: '70px', color: '#A75CD4' }}>
-                {orderObj.review ? <p className="Positive">Positive</p> : <p className="Negative">Negative</p>}
+                {orderObj?.review ? <p className="Positive">Positive</p> : <p className="Negative">Negative</p>}
               </Card.Text>
             </Card.Body>
             <Card.Body style={{
@@ -120,7 +121,7 @@ export default function OrderCard({ orderObj }) {
             }}
             >
               <Card.Text style={{ marginBottom: '5px', width: '50px', fontFamily: 'Poppins' }}><b>Status</b></Card.Text>
-              <Card.Text style={{ width: '70px', color: '#A75CD4' }}>{orderObj.orderStatus ? 'Open' : 'Closed'}</Card.Text>
+              <Card.Text style={{ width: '70px', color: '#A75CD4' }}>{orderObj?.orderStatus ? 'Open' : 'Closed'}</Card.Text>
             </Card.Body>
             <Card.Body style={{
               display: 'flex',
@@ -131,43 +132,41 @@ export default function OrderCard({ orderObj }) {
             }}
             >
               <Card.Text style={{ marginBottom: '5px', width: '50px', fontFamily: 'Poppins' }}><b>Total</b></Card.Text>
-              <Card.Text style={{ width: '70px', color: '#A75CD4' }}>USD ${orderObj.revenue}</Card.Text>
+              <Card.Text style={{ width: '70px', color: '#A75CD4' }}>USD ${orderObj?.revenue}</Card.Text>
             </Card.Body>
           </Card.Body>
         </Card>
       </Button>
       <Modal show={show} onHide={handleClose} style={{ color: 'black' }}>
         <Modal.Header closeButton>
-          <Modal.Title>Order #{orderObj.id}</Modal.Title>
+          <Modal.Title>Order #{orderObj?.id}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Order Status: {orderObj.orderStatus ? 'Open' : 'Closed'}</p>
-          <p>Date Created: {orderObj.date}</p>
+          <p>Order Status: {orderObj?.orderStatus ? 'Open' : 'Closed'}</p>
           <div>
-            <p>Review Rating: {orderObj.review ? <p className="Positive">Positive</p> : <p className="Negative">Negative</p>}</p>
+            <p>Review Rating: {orderObj?.review ? <p className="Positive">Positive</p> : <p className="Negative">Negative</p>}</p>
           </div>
           <h5>Customer Details</h5>
           <br />
-          <p>{orderObj.customerName}</p>
-          <p>{orderObj.customerEmail}</p>
-          <p>{orderObj.customerPhoneNumber}</p>
+          <p>{orderObj?.customerName}</p>
+          <p>{orderObj?.customerEmail}</p>
+          <p>{orderObj?.customerPhoneNumber}</p>
           <br />
           <h5>Order Details</h5>
           <br />
           <p>Product List</p>
           {arr[0]?.map((p) => <ProductListCards ListArr={p} />)}
           <br />
-          <p> Payment Method: <b>{orderObj.paymentType}</b> </p>
-          <h5> Tip Amount: {orderObj.tipAmount} </h5>
-          <h5> Total Amount: {orderObj.revenue} </h5>
+          <p> Payment Method: <b>{orderObj?.paymentType}</b> </p>
+          <h5> Tip Amount: {orderObj?.tipAmount} </h5>
+          <h5> Total Amount: {orderObj?.revenue} </h5>
         </Modal.Body>
         <Modal.Footer>
-          <Button style={{ backgroundColor: '#A75CD4', borderColor: '#A75CD4' }} onClick={handleClose}>
-            Edit Order
-          </Button>
-          <Button variant="dark" onClick={handleClose}>
-            Change Status
-          </Button>
+          <Link href={`/Order/edit/${orderObj.id}`} passHref>
+            <Button style={{ backgroundColor: '#A75CD4', borderColor: '#A75CD4' }} onClick={handleClose}>
+              Edit Order
+            </Button>
+          </Link>
           <Button variant="danger" onClick={deleteCurrentOrder}>
             Delete Order
           </Button>
