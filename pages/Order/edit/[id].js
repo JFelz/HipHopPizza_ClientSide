@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {
   Button, Form, Image, Modal,
 } from 'react-bootstrap';
-import { useAuth } from '../../utils/context/authContext';
-import { getSingleUser } from '../../api/userData';
-import ProductListCards from '../ProductListCards';
-import { createOrder } from '../../api/orderData';
+import { useAuth } from '../../../utils/context/authContext';
+import { getSingleUser } from '../../../api/userData';
+import { createOrder } from '../../../api/orderData';
+import ProductListCards from '../../../components/ProductListCards';
 
 const initialState = {
   cashierId: null,

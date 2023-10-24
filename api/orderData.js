@@ -42,8 +42,13 @@ const createOrder = (payload) => new Promise((resolve, reject) => {
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then(async (res) => {
+      let data;
+      if (res.ok) {
+        data = await res.text();
+        resolve(data);
+      }
+    })
     .catch(reject);
 });
 

@@ -55,7 +55,7 @@ function Home() {
   useEffect(() => {
     checkingUser();
     getProducts();
-  }, [productList]);
+  }, []);
 
   return (
     <>

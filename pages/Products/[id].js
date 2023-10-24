@@ -3,14 +3,11 @@ import { useRouter } from 'next/router';
 import {
   Carousel,
   Image,
-  // Footer,
-  Button,
 } from 'react-bootstrap';
 import { getSingleProduct } from '../../api/productData';
 
 export default function CurrentProductDetails() {
   const [productDetails, setProductDetails] = useState();
-  const [bool, setBool] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
@@ -25,19 +22,19 @@ export default function CurrentProductDetails() {
     getIndividualProduct();
   }, []);
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  // const handleClick = (e) => {
+  //   e.preventDefault();
 
-    setBool(true);
+  //   setBool(true);
 
-    // const payload = {
-    //   ...productDetails,
-    //   cartUser: user.uid,
-    // };
-    // createMyCartOrders(payload).then(({ name }) => {
-    //   const patchPayload = { firebaseKey: name };
-    //   updateMyCartOrders(patchPayload);
-  };
+  //   // const payload = {
+  //   //   ...productDetails,
+  //   //   cartUser: user.uid,
+  //   // };
+  //   // createMyCartOrders(payload).then(({ name }) => {
+  //   //   const patchPayload = { firebaseKey: name };
+  //   //   updateMyCartOrders(patchPayload);
+  // };
 
   return (
     <>
@@ -84,64 +81,6 @@ export default function CurrentProductDetails() {
             PRODUCT DESCRIPTION
           </h5>
           <p style={{ color: 'white', fontFamily: 'Poppins light' }}>{productDetails?.description}</p>
-        </div>
-
-        <div style={{
-          width: '35%',
-          height: '20%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          borderWidth: '4px',
-          borderColor: 'rgb(168, 168, 168)',
-          borderRadius: '9px',
-          borderStyle: 'solid',
-          padding: '30px',
-          marginLeft: '60px',
-        }}
-        >
-          <div
-            style={{
-              width: '100%',
-              height: '75px',
-              color: '#F4F4F4',
-              fontSize: '20px',
-            }}
-            className="d-flex justify-content-between"
-          >
-            <p>Total Price:</p>
-            <p>USD ${productDetails?.price}</p>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '85%',
-              height: '50px',
-              color: '#F4F4F4',
-              fontSize: '20px',
-            }}
-          >
-            {bool === false
-              ? (
-                <Button
-                  type="button"
-                  className="btn btn-success"
-                  style={{ backgroundColor: '#70E35D', width: '100%', borderWidth: '0px' }}
-                  onClick={handleClick}
-                >
-                  Add To Cart
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  className="btn btn-danger"
-                  style={{ backgroundColor: '#D84141', width: '100%', borderWidth: '0px' }}
-                >
-                  Already in Cart
-                </Button>
-              )}
-          </div>
         </div>
       </div>
     </>
